@@ -14,7 +14,13 @@ This application should be run on a physical Android device to take advantage of
   
    ![section1](https://github.com/SantoshInchalakaranji/HandGestureDetection/assets/94300931/3b462ba7-61be-41ed-864b-845c3fbe1167)
 
-- Video Demo: [Link to Video](link_to_video)
+- Video Demo: 
+
+
+
+https://github.com/SantoshInchalakaranji/HandGestureDetection/assets/94300931/42cc8db5-9a92-4920-bbba-1e2a50d576ad
+
+
 
 #### Section 2: Gesture Recognition
 - Branch: [Gesture_Recognition](lhttps://github.com/SantoshInchalakaranji/HandGestureDetection/tree/gesture_detection)
