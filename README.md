@@ -27,7 +27,7 @@ https://github.com/SantoshInchalakaranji/HandGestureDetection/assets/94300931/42
 - Image :
   
   ![section2](https://github.com/SantoshInchalakaranji/HandGestureDetection/assets/94300931/f9785fc9-c8d8-4a01-997e-777971e35043)
-- Video Demo: [Link to Video](link_to_video)
+- Video Demo: 
 
 
 
@@ -42,7 +42,7 @@ https://github.com/SantoshInchalakaranji/HandGestureDetection/assets/94300931/7e
   
   ![section3](https://github.com/SantoshInchalakaranji/HandGestureDetection/assets/94300931/dc3aaca3-1e5c-4c57-85c1-8f91a26c9939)
 
-- Video Demo: [Link to Video](link_to_video)
+- Video Demo: 
 
 
 
