@@ -90,11 +90,7 @@ class GalleryFragment : Fragment(),
             getContent.launch(arrayOf("image/*", "video/*"))
         }
 
-        with(fragmentGalleryBinding.recyclerviewResults) {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = gestureRecognizerResultsAdapter
-        }
-        initBottomSheetControls()
+
     }
 
     override fun onPause() {
@@ -106,90 +102,6 @@ class GalleryFragment : Fragment(),
         super.onPause()
     }
 
-    private fun initBottomSheetControls() {
-        // init bottom sheet settings
-        updateControlsUi()
-
-        // When clicked, lower detection score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdMinus.setOnClickListener {
-            if (viewModel.currentMinHandDetectionConfidence >= 0.2) {
-                viewModel.setMinHandDetectionConfidence(viewModel.currentMinHandDetectionConfidence - 0.1f)
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, raise detection score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdPlus.setOnClickListener {
-            if (viewModel.currentMinHandDetectionConfidence <= 0.8) {
-                viewModel.setMinHandDetectionConfidence(viewModel.currentMinHandDetectionConfidence + 0.1f)
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, lower hand tracking score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdMinus.setOnClickListener {
-            if (viewModel.currentMinHandTrackingConfidence >= 0.2) {
-                viewModel.setMinHandTrackingConfidence(
-                    viewModel.currentMinHandTrackingConfidence - 0.1f
-                )
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, raise hand tracking score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdPlus.setOnClickListener {
-            if (viewModel.currentMinHandTrackingConfidence <= 0.8) {
-                viewModel.setMinHandTrackingConfidence(
-                    viewModel.currentMinHandTrackingConfidence + 0.1f
-                )
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, lower hand presence score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdMinus.setOnClickListener {
-            if (viewModel.currentMinHandPresenceConfidence >= 0.2) {
-                viewModel.setMinHandPresenceConfidence(
-                    viewModel.currentMinHandPresenceConfidence - 0.1f
-                )
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, raise hand presence score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdPlus.setOnClickListener {
-            if (viewModel.currentMinHandPresenceConfidence <= 0.8) {
-                viewModel.setMinHandPresenceConfidence(
-                    viewModel.currentMinHandPresenceConfidence + 0.1f
-                )
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, change the underlying hardware used for inference. Current options are CPU
-        // GPU, and NNAPI
-        fragmentGalleryBinding.bottomSheetLayout.spinnerDelegate.setSelection(
-            viewModel.currentDelegate,
-            false
-        )
-        fragmentGalleryBinding.bottomSheetLayout.spinnerDelegate.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    p0: AdapterView<*>?,
-                    p1: View?,
-                    p2: Int,
-                    p3: Long
-                ) {
-
-                    viewModel.setDelegate(p2)
-                    updateControlsUi()
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    /* no op */
-                }
-            }
-    }
 
     // Update the values displayed in the bottom sheet. Reset detector.
     @SuppressLint("NotifyDataSetChanged")
@@ -200,18 +112,7 @@ class GalleryFragment : Fragment(),
         fragmentGalleryBinding.videoView.visibility = View.GONE
         fragmentGalleryBinding.imageResult.visibility = View.GONE
         fragmentGalleryBinding.overlay.clear()
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdValue.text =
-            String.format(
-                Locale.US, "%.2f", viewModel.currentMinHandDetectionConfidence
-            )
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdValue.text =
-            String.format(
-                Locale.US, "%.2f", viewModel.currentMinHandTrackingConfidence
-            )
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdValue.text =
-            String.format(
-                Locale.US, "%.2f", viewModel.currentMinHandPresenceConfidence
-            )
+
 
         fragmentGalleryBinding.overlay.clear()
         fragmentGalleryBinding.tvPlaceholder.visibility = View.VISIBLE
@@ -278,11 +179,6 @@ class GalleryFragment : Fragment(),
                                 }
 
                                 setUiEnabled(true)
-                                fragmentGalleryBinding.bottomSheetLayout.inferenceTimeVal.text =
-                                    String.format(
-                                        "%d ms",
-                                        resultBundle.inferenceTime
-                                    )
                             }
                         } ?: run {
                         Log.e(
@@ -380,8 +276,6 @@ class GalleryFragment : Fragment(),
 
                         setUiEnabled(false)
 
-                        fragmentGalleryBinding.bottomSheetLayout.inferenceTimeVal.text =
-                            String.format("%d ms", result.inferenceTime)
                     }
                 }
             },
@@ -413,20 +307,7 @@ class GalleryFragment : Fragment(),
 
     private fun setUiEnabled(enabled: Boolean) {
         fragmentGalleryBinding.fabGetContent.isEnabled = enabled
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdMinus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdPlus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdMinus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdPlus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdMinus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdPlus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.spinnerDelegate.isEnabled =
-            enabled
+
     }
 
     private fun recognitionError() {
@@ -441,12 +322,6 @@ class GalleryFragment : Fragment(),
         recognitionError()
         activity?.runOnUiThread {
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
-            if (errorCode == GestureRecognizerHelper.GPU_ERROR) {
-                fragmentGalleryBinding.bottomSheetLayout.spinnerDelegate.setSelection(
-                    GestureRecognizerHelper.DELEGATE_CPU,
-                    false
-                )
-            }
         }
     }
 
