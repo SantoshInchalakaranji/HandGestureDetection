@@ -1,4 +1,4 @@
-## Hand Gesture Detection Using Key
+## Hand Gesture Detection Using KeyPoints
 
 ### Overview
 This is a camera app that can detects hand landmarks either from continuous camera frames seen by your device's front camera, an image, or a video from the device's gallery using a custom task file.
