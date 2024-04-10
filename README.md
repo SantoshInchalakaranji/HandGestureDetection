@@ -10,7 +10,10 @@ This application should be run on a physical Android device to take advantage of
 #### Section 1: Hand Keypoint Detection System
 - Branch: [Hand_Keypoint_Detection](https://github.com/SantoshInchalakaranji/HandGestureDetection/tree/key_point_detection)
 - Image :
+
+  
    ![section1](https://github.com/SantoshInchalakaranji/HandGestureDetection/assets/94300931/3b462ba7-61be-41ed-864b-845c3fbe1167)
+
 - Video Demo: [Link to Video](link_to_video)
 
 #### Section 2: Gesture Recognition
