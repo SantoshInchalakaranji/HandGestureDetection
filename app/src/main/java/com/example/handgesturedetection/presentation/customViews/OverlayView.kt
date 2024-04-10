@@ -26,13 +26,6 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     private var imageWidth: Int = 1
     private var imageHeight: Int = 1
 
-    private val gestureImages = mapOf(
-        "Open_Palm" to R.drawable.one,
-        "Closed_Fist" to R.drawable.two,
-        "Thumb_Up" to R.drawable.three,
-        "Thumb_Down" to R.drawable.four,
-
-        )
 
     init {
         initPaints()
@@ -82,26 +75,6 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
                         linePaint
                     )
 
-                    // Draw the image on top of the detected hand based on the recognized gesture
-                    if (gestureRecognizerResult.gestures().isNotEmpty()) {
-                        val recognizedGesture =
-                            gestureRecognizerResult.gestures().first().first().categoryName()
-                        recognizedGesture?.let {
-                            val imageResource = gestureImages[it]
-                            imageResource?.let { resourceId ->
-                                val bitmap = BitmapFactory.decodeResource(resources, resourceId)
-                                val scaledBitmap =
-                                    Bitmap.createScaledBitmap(bitmap, 300, 300, false)
-                                val middle = landmark.size/2
-                                canvas.drawBitmap(
-                                    scaledBitmap,
-                                    landmark.get(middle).x() * imageWidth * scaleFactor,
-                                    landmark.get(middle).y() * imageHeight * scaleFactor,
-                                    null
-                                )
-                            }
-                        }
-                    }
 
                 }
             }
